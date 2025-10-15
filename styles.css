@@ -1,0 +1,208 @@
+/* Styles CSS for Icon-Matching.html */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  background: #efefef;
+}
+/* Top Bar */
+.gameTop {
+  width: 95%;
+  max-width: 1400px;
+  margin: 1rem auto 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
+}
+
+.gameStatus {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #333;
+}
+
+.gameStatus .timer,
+.gameStatus .turns {
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Game Area */
+.gameWrap {
+  width: 95%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+.gameWrap.withSidebar {
+  grid-template-columns: 1fr 320px;
+  align-items: stretch;
+}
+.gameWrap.shrinking .cardInnerScale {
+  transform: scale(.95);
+}
+
+.memoryGame {
+  --cols: 2; 
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr); 
+  gap: 10px;
+  min-height: 320px;
+  min-width: 0;
+  perspective: 1000px;
+}
+.solvedPairs {
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background: #fafafa;
+  align-self: stretch;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+@media (min-width: 480px) {
+  .memoryGame {
+    --cols: 3; 
+  }
+}
+@media (min-width: 600px) {
+  .memoryGame {
+    --cols: 4; 
+  }
+}
+@media (max-width: 799px) {
+  .solvedPairs {
+    margin-top: 8px
+  }
+}
+@media (min-width: 800px) {
+  .memoryGame {
+    --cols: 6; 
+  }
+}
+@media (min-width: 2500px) {
+    .memoryGame { 
+      --cols: 8; 
+    }
+}
+
+.memoryCard {
+  aspect-ratio: 1 / 1; 
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+  background: #54aaf0;
+  border-radius: 3%;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  overflow: hidden;
+  min-width: 0;
+}
+.memoryCard:active {
+   transform: scale(0.97);
+   transition: transform .2s;
+ }
+.memoryCard:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.4);
+  transition: box-shadow .2s;
+}
+
+.cardInnerScale {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform .18s ease;
+  transform-origin: center center;
+  will-change: transform;
+}
+.cardInnerFlip {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .45s cubic-bezier(.2,.9,.2,1); 
+}
+.memoryCard.flip .cardInnerFlip {
+  transform: rotateY(180deg);
+}
+.memoryCard.solvedCard {
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: transform .3s;
+  filter: grayscale(100%);
+}
+
+
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+.front-face {
+  transform: rotateY(180deg);
+}
+.front-icon, .back-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Solved List */
+.solvedPairs h3 {
+  margin: 8px 0;
+  font-size: 14px;
+  padding-left: 8px;
+}
+
+.solvedList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px;
+  align-items: center;
+}
+
+/* solved icon thumbnail */
+.solvedList .solvedIcon {
+  width: 100%;
+  padding-top: 100%; 
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.solvedList .solvedIcon img {
+  position: absolute;
+  inset: 8%;
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+  filter:invert(100%);
+}
+.solvedPairs {
+  z-index: 2;
+}

@@ -1,0 +1,32 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Memory Game</title>
+
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+
+  <main class="gameWrap">
+    <section class="memoryGame" aria-label="memory board">
+    </section>
+    <aside class="solvedPairs" aria-class="solved pairs">
+        <header class="gameTop" role="banner" aria-label="game status">
+    <div class="gameStatus">
+      <div class="timer" aria-live="polite">Time: <span id="time">00:00</span></div>
+      <div class="turns" aria-live="polite">Turns: <span id="turns">0</span></div>
+    </div>
+  </header>
+      <h3>Matched Icons:</h3>
+      <div class="solvedList" aria-live="polite"></div>
+    </aside>
+  </main>
+
+  <script src="./scripts.js"></script>
+</body>
+</html>
