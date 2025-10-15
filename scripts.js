@@ -29,6 +29,10 @@ function buildDeck() {
   return deck;
 }
 
+function iconUrl(name) {
+  return `https://api.iconify.design/pajamas:${encodeURIComponent(name)}.svg`;
+}
+
 function renderBoard() {
   board.innerHTML = '';
   resetTimerAndCounters();
@@ -42,10 +46,10 @@ function renderBoard() {
       <div class="cardInnerScale">
         <div class="cardInnerFlip">
           <div class="front-face">
-            <img class="front-icon" src="images/pajamas--${iconName}.svg" alt="${iconName}" />
+            <img class="front-icon" src="${iconUrl(iconName)}" alt="${iconName}" />
           </div>
           <div class="back-face">
-            <img class="back-icon" src="images/pajamas--question.svg" alt="back" />
+            <img class="back-icon" src="${iconUrl('question')}" alt="back" />
           </div>
         </div>
       </div>
@@ -155,7 +159,7 @@ function addSolvedIcon(iconName) {
   const item = document.createElement('div');
   item.className = 'solvedIcon';
   item.dataset.icon = iconName;
-  item.innerHTML = `<img src="images/pajamas--${iconName}.svg" alt="${iconName}" />`;
+  item.innerHTML = `<img src="${iconUrl(iconName)}" alt="${iconName}" />`;
   solvedListEl.appendChild(item);
 }
 
