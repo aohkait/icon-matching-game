@@ -167,8 +167,24 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter:invert(100%);
+  filter: brightness(0) invert(1);
 }
+.front-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(12px, 2.6vw, 18px);
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  word-break: break-word;
+}
+
 
 /* Solved List */
 .solvedPairs h3 {
@@ -179,7 +195,7 @@ body {
 
 .solvedList {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   padding: 8px;
   align-items: center;
@@ -187,21 +203,35 @@ body {
 
 /* solved icon thumbnail */
 .solvedList .solvedIcon {
-  width: 100%;
-  padding-top: 100%; 
-  position: relative;
-  border-radius: 6px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: 8px;
   background: #fff;
+  padding: 10px;
+  border-radius: 8px;
   border: 1px solid rgba(0,0,0,.06);
   box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  min-height: 84px;
+  overflow: hidden;
+  position: relative;
 }
 .solvedList .solvedIcon img {
-  position: absolute;
-  inset: 8%;
-  width: 84%;
-  height: 84%;
+  position: static;
+  width: 60%;
+  height: auto;
   object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+.solvedList .solvedIcon .solvedName {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1.1;
+  text-align: center;
+  width: 100%;
+  word-break: break-word;
 }
 .solvedPairs {
   z-index: 2;

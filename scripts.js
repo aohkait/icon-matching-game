@@ -23,10 +23,18 @@ function pickUniqueIcons(count) {
   return shuffleArray(ICONS).slice(0, count);
 }
 
+function displayName(name) {
+  // convert "check-circle" -> "Check Circle"
+  return name.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
 function buildDeck() {
-  const picked = pickUniqueIcons(PAIRS); // 12 unique icon names
-  const deck = shuffleArray(picked.concat(picked)); // 24 items, shuffled
-  return deck;
+  const picked = pickUniqueIcons(PAIRS); 
+  const images = picked.map(name => ({ name, type: 'image' }));
+  const texts = picked.map(name => ({ name, type: 'text' }));
+  const imagesShuffled = shuffleArray(images);
+  const textsShuffled = shuffleArray(texts);
+  return imagesShuffled.concat(textsShuffled);
 }
 
 function iconUrl(name) {
@@ -38,18 +46,28 @@ function renderBoard() {
   resetTimerAndCounters();
 
   const deck = buildDeck();
-  deck.forEach(iconName => {
+  deck.forEach(cardObj => {
+    const { name: iconName, type } = cardObj;
     const card = document.createElement('div');
     card.className = 'memoryCard';
     card.dataset.card = iconName;
+    card.dataset.type = type;
+
+    const frontContent = type === 'image'
+      ? `<img class="front-icon" src="${iconUrl(iconName)}" alt="${iconName}" />`
+      : `<div class="front-text">${displayName(iconName)}</div>`;
+
+    const backIconName = type === 'text' ? 'information' : 'question';
+    const backSrc = iconUrl(backIconName);
+
     card.innerHTML = `
       <div class="cardInnerScale">
         <div class="cardInnerFlip">
           <div class="front-face">
-            <img class="front-icon" src="${iconUrl(iconName)}" alt="${iconName}" />
+            ${frontContent}
           </div>
           <div class="back-face">
-            <img class="back-icon" src="${iconUrl('question')}" alt="back" />
+            <img class="back-icon" src="${backSrc}" alt="${backIconName}" />
           </div>
         </div>
       </div>
@@ -159,7 +177,10 @@ function addSolvedIcon(iconName) {
   const item = document.createElement('div');
   item.className = 'solvedIcon';
   item.dataset.icon = iconName;
-  item.innerHTML = `<img src="${iconUrl(iconName)}" alt="${iconName}" />`;
+  item.innerHTML = `
+    <img src="${iconUrl(iconName)}" alt="${iconName}" />
+    <div class="solvedName">${displayName(iconName)}</div>
+  `;
   solvedListEl.appendChild(item);
 }
 
