@@ -167,6 +167,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter:invert(100%);
 }
 
 /* Solved List */
@@ -201,7 +202,6 @@ body {
   width: 84%;
   height: 84%;
   object-fit: contain;
-  filter:invert(100%);
 }
 .solvedPairs {
   z-index: 2;
