@@ -1,5 +1,5 @@
 const ICONS = [
-  'check-circle','appearance','book','bookmark','diagram','doc-code','doc-image','doc-text','doc-versions','document','documents','earth','heart','home','hourglass','issue-type-objective','issue-type-test-case','key','keyboard','kind','link','list-task','lock','merge','messages','monitor','nature','notifications','package','paper-airplane','pencil','profile','quota','recipe','remove','review-list','rocket','scale','search','severity-unknown','tablet','thumb-up','unlink','user','warning','work-item-issue','work-item-maintenance'
+  'check-circle','appearance','book','bookmark','diagram','doc-code','doc-image','doc-text','doc-versions','document','documents','earth','heart','home','hourglass','issue-type-objective','issue-type-test-case','key','keyboard','kind','link','list-task','lock','merge','messages','monitor','nature','notifications','package','paper-airplane','pencil','profile','quota','recipe','remove','review-list','rocket','scale','search','share','tablet','thumb-up','unlink','user','warning','work-item-issue','work-item-maintenance'
 ];
 
 const BOARD_COLS = 6; // number of unique icons to pick horizontally (6 for 6x4 grid)
