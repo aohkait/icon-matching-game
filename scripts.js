@@ -147,6 +147,7 @@ function disableCards() {
 
   if (matchedPairs >= PAIRS) {
     stopTimer();
+    showPrintButton();
     alert(`Completed in ${formatTime(secondsElapsed)} with ${turnsCount} turns`);
   }
 }
@@ -188,6 +189,7 @@ function addSolvedIcon(iconName) {
 const timeEl = document.getElementById('time');
 const turnsEl = document.getElementById('turns');
 const solvedListEl = document.querySelector('.solvedList');
+const printBtnEl = document.getElementById('printStudy');
 
 let timerInterval = null;
 let startTime = null;
@@ -237,6 +239,59 @@ function resetTimerAndCounters() {
   updateTimerDisplay();
   updateTurnsDisplay();
   if (solvedListEl) solvedListEl.innerHTML = '';
+}
+function showPrintButton() {
+  if (!printBtnEl) return;
+  printBtnEl.classList.remove('hidden');
+  printBtnEl.setAttribute('aria-hidden', 'false');
+}
+function printStudy() {
+  if (!solvedListEl) return;
+  const finalTime = formatTime(secondsElapsed);
+  const finalTurns = turnsCount;
+  const solvedHtml = solvedListEl.innerHTML;
+
+  const root = document.createElement('div');
+  root.className = 'print-root';
+  root.innerHTML = `
+    <div class="print-header">
+      <h1>Solved Icons — Study Guide</h1>
+      <div class="print-meta">Time: ${finalTime} &nbsp; • &nbsp; Turns: ${finalTurns}</div>
+    </div>
+    <div class="print-grid">
+      ${solvedHtml}
+    </div>
+  `;
+
+  document.body.appendChild(root);
+
+  // ensure layout is updated (force reflow) before calling print
+  // some browsers need a little more time — use requestAnimationFrame + timeout
+  root.style.display = 'block';
+  // force reflow
+  void root.offsetWidth;
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      // call print; afterprint handler will remove the node where supported
+      window.print();
+
+      // best-effort cleanup if onafterprint isn't supported
+      setTimeout(() => {
+        try { document.body.removeChild(root); } catch (e) {}
+      }, 500);
+    }, 150);
+  });
+}
+
+// attempt cleanup after print on browsers that support onafterprint
+window.onafterprint = () => {
+  const el = document.querySelector('.print-root');
+  if (el) try { document.body.removeChild(el); } catch (e) {}
+};
+
+if (printBtnEl) {
+  printBtnEl.addEventListener('click', printStudy);
 }
 
 // initialize game
